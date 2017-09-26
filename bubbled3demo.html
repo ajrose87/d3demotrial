@@ -18,6 +18,7 @@
 		<script>
 		function onMessage (evt) {
 			if (evt && evt.data && evt.data.hasOwnProperty("data"))
+				console.log("why do you skip this part?");
 				updateData(evt.data);
 		}
 
