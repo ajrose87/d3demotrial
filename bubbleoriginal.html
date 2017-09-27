@@ -21,7 +21,7 @@
 		
 			/*function onMessage (evt) {
 			if (evt && evt.data && evt.data.hasOwnProperty("data"))
-				console.log("why do you skip this part?");
+				console.dir("why do you skip this part?");
 					updateData(evt.data);
 			}
 
@@ -47,11 +47,11 @@
 				.padding(1.5);
 				
 			d3.csv("flare.csv", function(d) {
-			console.log("data:"+ d);
+			console.dir("data:"+ d);
 			  d.value = +d.value;
 			  if (d.value) return d;
 			}, function(error, classes) {
-				console.log("classes:"+ classes.toString());
+				console.dir("classes:"+ classes);
 			  if (error) throw error;
 
 			  var root = d3.hierarchy({children: classes})
@@ -65,7 +65,7 @@
 					}
 				  });
 				  
-				 console.log("root:"+ root);
+				 console.dir("root:"+ root);
 
 			  var node = svg.selectAll(".node")
 				.data(pack(root).leaves())
