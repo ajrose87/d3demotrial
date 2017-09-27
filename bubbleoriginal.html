@@ -52,6 +52,7 @@
 			  if (d.value) return d;
 			}, function(error, classes) {
 				console.dir(classes);
+				console.dir(classes[0]);
 			  if (error) throw error;
 
 			  var root = d3.hierarchy({children: classes})
