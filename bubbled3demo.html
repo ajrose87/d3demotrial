@@ -57,6 +57,7 @@
 			function runData(chartData) {
 				var classes = [];
 				if(chartData){	
+				console.dir(chartData);
 					for(var count = 0; count < +chartData.rowCount; count++){
 						chartData[count][1] = +chartData[count][1];
 						console.log(chartData[count][0]);
