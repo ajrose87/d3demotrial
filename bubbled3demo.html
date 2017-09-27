@@ -61,6 +61,7 @@
 
 			d3.csv("flare.csv", function(d) {
 			  d.value = +d.value;
+			  console.log(d.value);
 			  if (d.value) return d;
 			}, function(error, classes) {
 			  if (error) throw error;
