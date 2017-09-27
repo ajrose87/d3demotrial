@@ -19,7 +19,7 @@
 
 		angular.module('myApp', []).controller('myCtrl', function($scope){
 		
-			function onMessage (evt) {
+			/*function onMessage (evt) {
 			if (evt && evt.data && evt.data.hasOwnProperty("data"))
 				console.log("why do you skip this part?");
 					updateData(evt.data);
@@ -30,7 +30,9 @@
 			}
 			else {
 				window.attachEvent("onmessage", onMessage);
-			}
+			}*/
+			
+			updateData([["flare",],["flare.analytics.cluster.AgglomerativeCluster",3938]]);
 
 			var svg = d3.select("svg"),
 				width = +svg.attr("width"),
@@ -46,19 +48,17 @@
 				
 			function updateData(tempData){
 				var scope = angular.element($("#chartDiv")).scope();
-				scope.$apply(function(){
+				//scope.$apply(function(){
 					scope.data = runData(tempData);
-					scope.api.refresh();
-				});
+					//scope.api.refresh();
+				//});
 			}
 
 			function runData(chartData) {
-				if(chartData){
+				if(chartData){	
 					for (let row of chartData){
 						row[1] = +row[1];
 					}
-					function(error, classes) {
-					  if (error) throw error;
 
 					  var root = d3.hierarchy({children: classes})
 						  .sum(function(d) { console.log("see here:" + d);return d.value; })
@@ -98,7 +98,7 @@
 
 					  node.append("title")
 						  .text(function(d) { return d.id + "\n" + format(d.value); });
-					}
+					
 				}
 			}
 			
