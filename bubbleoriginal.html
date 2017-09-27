@@ -51,7 +51,7 @@
 			  d.value = +d.value;
 			  if (d.value) return d;
 			}, function(error, classes) {
-				console.log("classes:"+ classes);
+				console.log("classes:"+ classes.toString());
 			  if (error) throw error;
 
 			  var root = d3.hierarchy({children: classes})
