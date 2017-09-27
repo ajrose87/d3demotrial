@@ -16,20 +16,21 @@
 		</div>
 
 		<script>
-		function onMessage (evt) {
-			if (evt && evt.data && evt.data.hasOwnProperty("data"))
-				console.log("why do you skip this part?");
-				updateData(evt.data);
-		}
-
-		if (window.addEventListener) {
-			window.addEventListener("message", onMessage, false);
-		}
-		else {
-			window.attachEvent("onmessage", onMessage);
-		}
 
 		angular.module('myApp', []).controller('myCtrl', function($scope){
+		
+			function onMessage (evt) {
+			if (evt && evt.data && evt.data.hasOwnProperty("data"))
+				console.log("why do you skip this part?");
+					updateData(evt.data);
+			}
+
+			if (window.addEventListener) {
+				window.addEventListener("message", onMessage, false);
+			}
+			else {
+				window.attachEvent("onmessage", onMessage);
+			}
 
 			var svg = d3.select("svg"),
 				width = +svg.attr("width"),
