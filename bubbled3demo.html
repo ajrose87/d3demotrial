@@ -60,7 +60,7 @@
 						chartData.data[count][1] = +chartData.data[count][1];
 						if(isNaN(chartData.data[count][1]))
 							chartData.data[count][1] = 0
-						classes.push({type: chartData.data[count][0], value: chartData.data[count][1]});
+						classes.push({id: chartData.data[count][0], value: chartData.data[count][1]});
 					}
 
 					var root = d3.hierarchy({children: classes})
