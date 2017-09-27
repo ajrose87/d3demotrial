@@ -57,8 +57,8 @@
 			function runData(chartData) {
 				var classes = [];
 				if(chartData){	
+					console.log(chartData.length);
 					for(var count = 0; count < chartData.length; count++){
-						console.log(chartData.length);
 						chartData[count][1] = +chartData[count][1];
 						console.log(chartData[count][0]);
 						if(isNaN(chartData[count][1]))
