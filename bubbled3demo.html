@@ -59,11 +59,11 @@
 				if(chartData){	
 				console.dir(chartData);
 					for(var count = 0; count < +chartData.rowCount; count++){
-						chartData[count][1] = +chartData[count][1];
-						console.log(chartData[count][0]);
-						if(isNaN(chartData[count][1]))
-							chartData[count][1] = 0
-						classes.push({type: chartData[count][0], value: chartData[count][1]});
+						chartData.data[count][1] = +chartData.data[count][1];
+						console.log(chartData.data[count][0]);
+						if(isNaN(chartData.data[count][1]))
+							chartData.data[count][1] = 0
+						classes.push({type: chartData.data[count][0], value: chartData.data[count][1]});
 					}
 					
 					//var classes = [].concat.apply([], chartData);
