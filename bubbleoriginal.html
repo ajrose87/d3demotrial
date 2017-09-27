@@ -47,11 +47,11 @@
 				.padding(1.5);
 				
 			d3.csv("flare.csv", function(d) {
-			console.dir("data:"+ d);
+			console.dir(d);
 			  d.value = +d.value;
 			  if (d.value) return d;
 			}, function(error, classes) {
-				console.dir("classes:"+ classes);
+				console.dir(classes);
 			  if (error) throw error;
 
 			  var root = d3.hierarchy({children: classes})
@@ -65,7 +65,7 @@
 					}
 				  });
 				  
-				 console.dir("root:"+ root);
+				 console.dir(root);
 
 			  var node = svg.selectAll(".node")
 				.data(pack(root).leaves())
