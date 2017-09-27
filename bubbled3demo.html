@@ -57,6 +57,7 @@
 			function runData(chartData) {
 				var classes = [];
 				if(chartData){	
+					console.log("there's data");
 					for(var count = 0; count < chartData.length; count++){
 						chartData[count][1] = +chartData[count][1];
 						console.log(chartData[count][0]);
