@@ -5,6 +5,8 @@
 	<script src="https://d3js.org/d3.v4.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>  
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
 </head>
 
 <body>
@@ -18,8 +20,7 @@
 		angular.module('myApp', []).controller('myCtrl', function($scope){
 		
 			function onMessage (evt) {
-				console.dir(evt);
-				if (evt && evt.data && evt.data.hasOwnProperty("data"))
+			if (evt && evt.data && evt.data.hasOwnProperty("data"))
 					updateData(evt.data);
 			}
 
@@ -29,6 +30,8 @@
 			else {
 				window.attachEvent("onmessage", onMessage);
 			}
+			
+			//updateData([["flare",],["flare.analytics.cluster.AgglomerativeCluster",3938]]);
 
 			var svg = d3.select("svg"),
 				width = +svg.attr("width"),
@@ -90,6 +93,7 @@
 					node.append("text")
 					  .attr("clip-path", function(d) { return "url(#clip-" + d.id + ")"; })
 					.selectAll("tspan")
+					.data(function(d) { console.dir(d); return d.class.split(/(?=[A-Z][^A-Z])/g); })
 					.data(function(d) { return d.class.split(/(?=[A-Z][^A-Z])/g); })
 					.enter().append("tspan")
 					  .attr("x", 0)
@@ -100,7 +104,9 @@
 					  .text(function(d) { return d.id + "\n" + format(d.value); });
 					
 				}
-			}	
+			}
+			
+			
 		});
 		</script>
 	</div>
