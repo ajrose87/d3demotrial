@@ -38,29 +38,6 @@
 			}
 			
 			var self = this;
-			var formatter = {};
-			var selection = {enabled: true, draggable: true, multiple: true};
-						
-			var onclick = function (d, element) { 
-				var sel = chart.selected();
-				var selection = [];
-				
-				for (var s of sel)
-				{
-					selection.push({row: s.index});
-				}
-				
-				var message = {
-					resultName: self.resultName,
-					selections: selection
-				};
-				
-				var url = (window.location != window.parent.location)
-					? document.referrer
-					: document.location.href;
-					
-				window.parent.postMessage(message, url);
-			};
 			
 			function updateData(chartData)
 			{
@@ -125,33 +102,9 @@
 					}
 				}
 
-				var loadData = {};
+				console.dir(chartData);
 				
-				if (chartData.data)
-				{
-					loadData.rows = chartData.data;
-					if (columnLabelsArray)
-					{
-						loadData.rows.splice(0, 0, columnLabelsArray);
-					}				
-					if (xAxis)
-						loadData.x = xAxis;
-				}
-				loadData.keys = {x: xAxis, value: values};
-
-				self.xAxis = xAxis;
-				self.values = values;
-				
-				if (shouldUnload)
-					loadData.unload = shouldUnload;
-
-
-				
-				loadData.type = "bar";
-				loadData.selection = selection;
-				loadData.onclick = onclick;
-				
-				timeseries('timeseries one', getData(new Date(2012, 1, 1), new Date(2015, 1, 2), amount), true);
+				//timeseries('timeseries one', getData(new Date(2012, 1, 1), new Date(2015, 1, 2), amount), true);
 			}
 			
 		}
