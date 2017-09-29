@@ -2,8 +2,7 @@
 
 <head> 
 	<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
-    <link rel="stylesheet" href="resources/default.css" />
-    <link rel="stylesheet" href="style.css" />
+
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.1.0/lodash.min.js"></script>
@@ -47,53 +46,7 @@
 			{
 				console.dir(chartData);
 				
-				var xAxis = null;
-				var values = [];
-				var columnInfo = null;
 				
-				columnInfo = chartData.columns;
-				self.resultName = chartData.resultName;
-				
-				if (columnInfo)
-				{
-					var columnLabelsArray = []
-					var columnLabels = null;
-					for (var i = 0; i < columnInfo.length; i++)
-					{
-						var colInfo = columnInfo[i];
-						if (colInfo.type == "number")
-						{
-							values.push(colInfo.label);
-							if (colInfo.format)
-							{
-								if (colInfo.format.name == "DOLLAR")
-									self.formatter[colInfo.label] = d3.format("$" + colInfo.format.width + ",." + colInfo.format.precision + "f");
-								else if (colInfo.format.name == "COMMA")
-									self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "f");
-								else if (colInfo.format.name == "F")
-									self.formatter[colInfo.label] = d3.format(colInfo.format.width + "." + colInfo.format.precision + "f");
-								else if (colInfo.format.name == "PERCENT")
-									self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "%");
-							}
-						}
-						else
-							xAxis = colInfo.label;
-							
-						if (columnLabels)
-							columnLabels += ",\"" + colInfo.label + "\"";
-						else
-							columnLabels = "\"" + colInfo.label + "\"";
-						columnLabelsArray.push(colInfo.label);
-						
-					}						
-				}		
-				
-				var arrayData = chartData.data;
-				convertDatesToDates(arrayData, columnInfo);
-				
-				console.dir(arrayData);
-				
-				//timeseries('timeseries one', getData(new Date(2012, 1, 1), new Date(2015, 1, 2), amount), true);
 			}
 			
 			function convertDatesToDates(data, columnInfo)
