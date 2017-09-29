@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 
 <head> 
+	<link rel="shortcut icon" type="image/png" href="images/favicon.png"/>
+    <link rel="stylesheet" href="resources/default.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.1.0/lodash.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
@@ -101,11 +105,41 @@
 						}
 					}
 				}
-
+				
+				arrayData = chartData.data;
+				convertDatesToDates(arrayData, columnInfo);
+				
 				console.dir(chartData);
 				
 				//timeseries('timeseries one', getData(new Date(2012, 1, 1), new Date(2015, 1, 2), amount), true);
 			}
+			
+			function convertDatesToDates(data, columnInfo)
+			{
+				for (var c = 0; c < columnInfo.length; c++)
+				{
+					var colInfo = columnInfo[c];
+					if (colInfo)
+					{
+						if (colInfo.type == "date")
+						{
+							if (colInfo.format)
+							{
+								if (colInfo.format.name == "DATE")
+								{
+								}
+							}
+							
+							for (var i = 0; i < data.length; i++)
+							{
+								var old = data[i][c];
+								data[i][c] = new Date(old);
+								//console.log(old + " : " + data[i][c]);								
+							}
+						}
+					}
+				}
+			}		
 			
 		}
     </script>
