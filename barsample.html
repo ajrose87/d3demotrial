@@ -174,10 +174,10 @@
 			if (xAxis)
 				loadData.x = xAxis;
 		}
-		loadData.keys = {x: xAxis, value: values};
+		loadData.keys = {x: xAxis, value: typeof myVar != 'undefined' ? +values : 0};
 
         self.xAxis = xAxis;
-        self.values = values;
+        self.values = +values;
 		
         if (shouldUnload)
 			loadData.unload = shouldUnload;
