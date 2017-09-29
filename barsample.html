@@ -132,18 +132,16 @@
 				} 
 				else
 					xAxis = colInfo.label;
-				
-				console.dir(xAxis);
-				
+
 				if (columnLabels)
 					columnLabels += ",\"" + colInfo.label + "\"";
 				else
 					columnLabels = "\"" + colInfo.label + "\"";
-				columnLabelsArray.push(colInfo.label);
-				
-				console.dir(columnLabelsArray);
-				
-			}						
+
+				columnLabelsArray.push(colInfo.label);	
+			}
+			console.dir(columnLabelsArray);
+			console.dir(xAxis);
 		}		
 
         var shouldUnload = false;
