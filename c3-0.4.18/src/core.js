@@ -937,20 +937,11 @@ c3_chart_internal_fn.bindResize = function () {
     $$.resizeFunction.add(function () {
         config.onresized.call($$);
     });
-    
-    var resizeIfElementDisplayed = function() {
-        // if element not displayed skip it
-        if (!$$.api.element.offsetParent) {
-            return;
-        }
-
-        $$.resizeFunction();
-    };
 
     if (window.attachEvent) {
-        window.attachEvent('onresize', resizeIfElementDisplayed);
+        window.attachEvent('onresize', $$.resizeFunction);
     } else if (window.addEventListener) {
-        window.addEventListener('resize', resizeIfElementDisplayed, false);
+        window.addEventListener('resize', $$.resizeFunction, false);
     } else {
         // fallback to this, if this is a very old browser
         var wrapper = window.onresize;
@@ -964,14 +955,7 @@ c3_chart_internal_fn.bindResize = function () {
         }
         // add this graph to the wrapper, we will be removed if the user calls destroy
         wrapper.add($$.resizeFunction);
-        window.onresize = function() {
-            // if element not displayed skip it
-            if (!$$.api.element.offsetParent) {
-                    return;
-            }
-
-            wrapper();
-		};
+        window.onresize = wrapper;
     }
 };
 
