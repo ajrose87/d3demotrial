@@ -18,7 +18,9 @@
 		<script>
 
 		angular.module('myApp', []).controller('myCtrl', function($scope){
-		
+			
+			"use strict";
+			
 			function onMessage (evt) {
 			if (evt && evt.data && evt.data.hasOwnProperty("data"))
 					updateData(evt.data);

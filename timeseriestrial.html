@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<head> 
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.1.0/lodash.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+    <script src="timeseries.js"></script>
+</head>
+
+<body>
+    <div class="container">
+		<p> 
+			<pre><code class="html">&lt;div class="timeseries"&gt;&lt;/div&gt;</code></pre>
+			<pre><code class="javascript">var data = [{'value': 1380854103662},{'value': 1363641921283}];</code></pre>
+			<pre><code class="javascript">timeseries('timeseries', data, true);</code></pre>
+		</p>
+    </div>
+
+    <script>
+		hljs.initHighlightingOnLoad();
+		
+		window.onload = function() {
+		
+			"use strict";
+			
+			function onMessage (evt) {
+				if (evt && evt.data && evt.data.hasOwnProperty("data"))
+					updateData(evt.data);
+			}
+
+			if (window.addEventListener) {
+				// For standards-compliant web browsers
+				window.addEventListener("message", onMessage, false);
+			}
+			else {
+				window.attachEvent("onmessage", onMessage);
+			}
+			
+			var self = this;
+			var formatter = {};
+			var selection = {enabled: true, draggable: true, multiple: true};
+						
+			var onclick = function (d, element) { 
+				var sel = chart.selected();
+				var selection = [];
+				
+				for (var s of sel)
+				{
+					selection.push({row: s.index});
+				}
+				
+				var message = {
+					resultName: self.resultName,
+					selections: selection
+				};
+				
+				var url = (window.location != window.parent.location)
+					? document.referrer
+					: document.location.href;
+					
+				window.parent.postMessage(message, url);
+			};
+			
+			function updateData(chartData)
+			{
+				var xAxis = null;
+				var values = [];
+				var columnInfo = null;
+				
+				columnInfo = chartData.columns;
+				self.resultName = chartData.resultName;
+				
+				if (columnInfo)
+				{
+					var columnLabelsArray = []
+					var columnLabels = null;
+					for (var i = 0; i < columnInfo.length; i++)
+					{
+						var colInfo = columnInfo[i];
+						if (colInfo.type == "number")
+						{
+							values.push(colInfo.label);
+							if (colInfo.format)
+							{
+								if (colInfo.format.name == "DOLLAR")
+									self.formatter[colInfo.label] = d3.format("$" + colInfo.format.width + ",." + colInfo.format.precision + "f");
+								else if (colInfo.format.name == "COMMA")
+									self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "f");
+								else if (colInfo.format.name == "F")
+									self.formatter[colInfo.label] = d3.format(colInfo.format.width + "." + colInfo.format.precision + "f");
+								else if (colInfo.format.name == "PERCENT")
+									self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "%");
+							}
+						}
+						else
+							xAxis = colInfo.label;
+							
+						if (columnLabels)
+							columnLabels += ",\"" + colInfo.label + "\"";
+						else
+							columnLabels = "\"" + colInfo.label + "\"";
+						columnLabelsArray.push(colInfo.label);
+						
+					}						
+				}		
+
+				var shouldUnload = false;
+				if (self.xAxis && self.xAxis != xAxis)
+					shouldUnload = true;
+				if (self.values)
+				{
+					if (self.values.length != values.length)
+						shouldUnload = true;
+					else
+					{
+						for (var value of values)
+						{
+							if (self.values.indexOf(value) == -1)
+							{
+								shouldUnload = true;
+								break;
+							}
+						}
+					}
+				}
+
+				var loadData = {};
+				
+				if (chartData.data)
+				{
+					loadData.rows = chartData.data;
+					if (columnLabelsArray)
+					{
+						loadData.rows.splice(0, 0, columnLabelsArray);
+					}				
+					if (xAxis)
+						loadData.x = xAxis;
+				}
+				loadData.keys = {x: xAxis, value: values};
+
+				self.xAxis = xAxis;
+				self.values = values;
+				
+				if (shouldUnload)
+					loadData.unload = shouldUnload;
+
+
+				
+				loadData.type = "bar";
+				loadData.selection = selection;
+				loadData.onclick = onclick;
+				
+				timeseries('timeseries one', getData(new Date(2012, 1, 1), new Date(2015, 1, 2), amount), true);
+			}
+			
+		}
+    </script>
+	
+</body>
+
+</html>
