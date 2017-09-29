@@ -85,26 +85,6 @@
 						
 					}						
 				}		
-
-				var shouldUnload = false;
-				if (self.xAxis && self.xAxis != xAxis)
-					shouldUnload = true;
-				if (self.values)
-				{
-					if (self.values.length != values.length)
-						shouldUnload = true;
-					else
-					{
-						for (var value of values)
-						{
-							if (self.values.indexOf(value) == -1)
-							{
-								shouldUnload = true;
-								break;
-							}
-						}
-					}
-				}
 				
 				var arrayData = chartData.data;
 				convertDatesToDates(arrayData, columnInfo);
