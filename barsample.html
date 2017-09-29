@@ -129,19 +129,17 @@
 						else if (colInfo.format.name == "PERCENT")
 							self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "%");
 					}
-				} 
+				}
 				else
 					xAxis = colInfo.label;
-
+					
 				if (columnLabels)
 					columnLabels += ",\"" + colInfo.label + "\"";
 				else
 					columnLabels = "\"" + colInfo.label + "\"";
-
-				columnLabelsArray.push(colInfo.label);	
-			}
-			console.dir(columnLabelsArray);
-			console.dir(xAxis);
+				columnLabelsArray.push(colInfo.label);
+				
+			}						
 		}		
 
         var shouldUnload = false;
@@ -176,10 +174,10 @@
 			if (xAxis)
 				loadData.x = xAxis;
 		}
-		loadData.keys = {x: xAxis, value: typeof myVar != 'undefined' ? +values : 0};
+		loadData.keys = {x: xAxis, value: values};
 
         self.xAxis = xAxis;
-        self.values = +values;
+        self.values = values;
 		
         if (shouldUnload)
 			loadData.unload = shouldUnload;
@@ -189,8 +187,6 @@
 	loadData.type = "bar";
 	loadData.selection = selection;
 	loadData.onclick = onclick;
-	
-	console.dir(loadData);
 		
     var chart = c3.generate({
         bindto: '#chart_div',
