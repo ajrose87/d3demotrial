@@ -129,15 +129,19 @@
 						else if (colInfo.format.name == "PERCENT")
 							self.formatter[colInfo.label] = d3.format(colInfo.format.width + ",." + colInfo.format.precision + "%");
 					}
-				}
+				} 
 				else
 					xAxis = colInfo.label;
-					
+				
+				console.dir(xAxis);
+				
 				if (columnLabels)
 					columnLabels += ",\"" + colInfo.label + "\"";
 				else
 					columnLabels = "\"" + colInfo.label + "\"";
 				columnLabelsArray.push(colInfo.label);
+				
+				console.dir(columnLabelsArray);
 				
 			}						
 		}		
