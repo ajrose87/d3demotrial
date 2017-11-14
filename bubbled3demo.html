@@ -18,11 +18,13 @@
 		<script>
 
 		angular.module('myApp', []).controller('myCtrl', function($scope){
+		
+			//take in data from VA -------
 			
 			"use strict";
 			
 			function onMessage (evt) {
-			if (evt && evt.data && evt.data.hasOwnProperty("data"))
+				if (evt && evt.data && evt.data.hasOwnProperty("data"))
 					updateData(evt.data);
 			}
 
@@ -33,7 +35,7 @@
 				window.attachEvent("onmessage", onMessage);
 			}
 			
-			//updateData([["flare",],["flare.analytics.cluster.AgglomerativeCluster",3938]]);
+			//------------------
 
 			var svg = d3.select("svg"),
 				width = +svg.attr("width"),
